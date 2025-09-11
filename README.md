@@ -7,7 +7,7 @@ A comprehensive research project for real-time bruxism (teeth grinding/clenching
 This project develops an innovative approach to detect and monitor bruxism using a combination of:
 - **Magnetic field sensing** with HMC5883L magnetometer
 - **N35 neodymium magnet** positioned on upper teeth
-- **IMU integration** for enhanced motion tracking
+- **IMU integration** for enhanced motion tracking - GY-87/HW-290
 - **Extended Kalman Filter (EKF)** for sensor fusion
 - **Force sensors** for bite force measurement
 - **Real-time 3D visualization** and analysis
@@ -164,6 +164,7 @@ Research project - Academic use permitted. Commercial applications require permi
 
 ---
 *Developed for advancing non-invasive bruxism detection through innovative sensor fusion techniques.*
+
 
 
 
