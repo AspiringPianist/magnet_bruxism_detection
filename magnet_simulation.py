@@ -5,6 +5,7 @@ matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 from scipy.signal import welch
+from scipy.interpolate import interp1d
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 import json
 
@@ -241,13 +242,43 @@ plt.show()
 dBx_dz_full = np.gradient(noisy_B[:, 0] * 1e6, true_positions[:, 2] * 1000)  # µT/mm
 
 # --- Save data to JSON ---
+# Preprocess data for smooth playback - reduce to 150 points (10Hz equivalent for 15s)
+def smooth_resample(data, original_points, target_points):
+    """Smoothly resample data from original_points to target_points"""
+    from scipy.interpolate import interp1d
+    original_indices = np.linspace(0, len(data)-1, original_points)
+    target_indices = np.linspace(0, len(data)-1, target_points)
+    
+    if len(data.shape) == 1:
+        # 1D data
+        interp_func = interp1d(original_indices, data, kind='cubic')
+        return interp_func(target_indices)
+    else:
+        # 2D data
+        result = np.zeros((target_points, data.shape[1]))
+        for i in range(data.shape[1]):
+            interp_func = interp1d(original_indices, data[:, i], kind='cubic')
+            result[:, i] = interp_func(target_indices)
+        return result
+
+# Reduce from 750 points to 150 points (10Hz for smooth 15-second playback)
+target_points = 150
+smooth_t = smooth_resample(t, len(t), target_points)
+smooth_positions = smooth_resample(true_positions, len(true_positions), target_points)
+smooth_noisy_B = smooth_resample(noisy_B, len(noisy_B), target_points)
+smooth_estimated_positions = smooth_resample(estimated_positions, len(estimated_positions), target_points)
+smooth_field_magnitude = smooth_resample(field_magnitude, len(field_magnitude), target_points)
+smooth_dBx_dz = smooth_resample(dBx_dz_full, len(dBx_dz_full), target_points)
+
 data = {
-    't': t.tolist(),
-    'true_positions': true_positions.tolist(),
-    'noisy_B': noisy_B.tolist(),
-    'estimated_positions': estimated_positions.tolist(),
-    'field_magnitude': field_magnitude.tolist(),
-    'dBx_dz_full': dBx_dz_full.tolist()
+    't': smooth_t.tolist(),
+    'true_positions': smooth_positions.tolist(),
+    'noisy_B': smooth_noisy_B.tolist(),
+    'estimated_positions': smooth_estimated_positions.tolist(),
+    'field_magnitude': smooth_field_magnitude.tolist(),
+    'dBx_dz_full': smooth_dBx_dz.tolist(),
+    'original_length': len(t),  # Keep track of original data size
+    'playback_rate': 100  # Recommended playback interval in ms
 }
 with open('simulation_data.json', 'w') as f:
     json.dump(data, f)

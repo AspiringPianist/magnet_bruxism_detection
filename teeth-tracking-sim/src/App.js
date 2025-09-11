@@ -69,9 +69,10 @@ export default function App() {
 
   useEffect(() => {
     if (!data || !isPlaying) return;
+    const playbackRate = data.playback_rate || 100; // Use recommended rate from data
     const interval = setInterval(() => {
-      setCurrentIndex(prev => (prev + 5) % data.t.length); // Skip 5 data points for 15-second playback
-    }, 100); // 100ms intervals, skipping data points to maintain 15-second total time
+      setCurrentIndex(prev => (prev + 1) % data.t.length); // Simple increment, no skipping
+    }, playbackRate);
     return () => clearInterval(interval);
   }, [data, isPlaying]);
 
@@ -83,13 +84,19 @@ export default function App() {
     z: data.true_positions[currentIndex][1] * 50   // Scale up lateral movement
   };
 
-  const chartData = data.t.slice(0, currentIndex + 1).map((t, i) => ({
-    time: t,
-    Bx: data.noisy_B[i][0] * 1e6,
-    By: data.noisy_B[i][1] * 1e6,
-    Bz: data.noisy_B[i][2] * 1e6,
-    magnitude: data.field_magnitude[i]
-  }));
+  const chartData = (() => {
+    const windowSize = 50; // Show only last 50 points for clarity
+    const startIndex = Math.max(0, currentIndex - windowSize);
+    const endIndex = currentIndex + 1;
+    
+    return data.t.slice(startIndex, endIndex).map((t, i) => ({
+      time: parseFloat(t.toFixed(2)), // Round time for cleaner display
+      Bx: parseFloat((data.noisy_B[startIndex + i][0] * 1e6).toFixed(3)),
+      By: parseFloat((data.noisy_B[startIndex + i][1] * 1e6).toFixed(3)),
+      Bz: parseFloat((data.noisy_B[startIndex + i][2] * 1e6).toFixed(3)),
+      magnitude: parseFloat(data.field_magnitude[startIndex + i].toFixed(3))
+    }));
+  })();
 
   return (
     <div style={{ width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column' }}>
@@ -105,14 +112,19 @@ export default function App() {
         </button>
         <LineChart width={800} height={250} data={chartData}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="time" />
-          <YAxis />
+          <XAxis 
+            dataKey="time" 
+            type="number" 
+            scale="linear" 
+            domain={['dataMin', 'dataMax']}
+          />
+          <YAxis domain={[-50, 50]} /> {/* Fixed Y-axis range for magnetic field visibility */}
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="Bx" stroke="#8884d8" />
-          <Line type="monotone" dataKey="By" stroke="#82ca9d" />
-          <Line type="monotone" dataKey="Bz" stroke="#ffc658" />
-          <Line type="monotone" dataKey="magnitude" stroke="#ff0000" />
+          <Line type="monotone" dataKey="Bx" stroke="#8884d8" strokeWidth={3} dot={false} />
+          <Line type="monotone" dataKey="By" stroke="#82ca9d" strokeWidth={3} dot={false} />
+          <Line type="monotone" dataKey="Bz" stroke="#ffc658" strokeWidth={3} dot={false} />
+          <Line type="monotone" dataKey="magnitude" stroke="#ff0000" strokeWidth={3} dot={false} />
         </LineChart>
       </div>
     </div>
