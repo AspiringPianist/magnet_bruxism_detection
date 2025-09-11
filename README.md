@@ -29,10 +29,7 @@ This project develops an innovative approach to detect and monitor bruxism using
 ## 📊 Demo & Visualization
 
 ### Live Simulation Demo
-<figure class="video_container">
-  <iframe src="video_demo.mp4" frameborder="0" allowfullscreen="true"> 
-</iframe>
-</figure>
+![ThreeJS Visualizaation](https://youtu.be/dB5wdd2wcMA)
 
 ### Magnetic Field Analysis
 The system distinguishes between different jaw activities:
