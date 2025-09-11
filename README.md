@@ -29,7 +29,8 @@ This project develops an innovative approach to detect and monitor bruxism using
 ## 📊 Demo & Visualization
 
 ### Live Simulation Demo
- ThreeJS Visualization - https://youtu.be/dB5wdd2wcMA
+ ThreeJS Simulation Visualization - https://youtu.be/dB5wdd2wcMA
+ Splint Prototype - https://youtu.be/MBz_szsM2Cs?si=wlJ8ah46i7i2r_9H
  ![Recording 2025-09-11 111226](https://github.com/user-attachments/assets/2c2b960e-e190-4a4a-abae-6c1fed022e0d)
 
 ### Magnetic Field Analysis
@@ -164,6 +165,7 @@ Research project - Academic use permitted. Commercial applications require permi
 
 ---
 *Developed for advancing non-invasive bruxism detection through innovative sensor fusion techniques.*
+
 
 
 
