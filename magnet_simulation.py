@@ -1,9 +1,12 @@
 import numpy as np
 import magpylib as magpy
+import matplotlib
+matplotlib.use('Agg')  # Use non-interactive backend
 import matplotlib.pyplot as plt
 from scipy.optimize import minimize
 from scipy.signal import welch
 from sklearn.metrics import mean_squared_error, mean_absolute_error
+import json
 
 # --- 1. Define Magnet and Magnetometer ---
 # N35 magnet: 5 mm x 5 mm x 2 mm, magnetization (~1.2 T => 955000 A/m)
@@ -236,10 +239,17 @@ plt.show()
 
 # --- ∂Bx/∂z Over Time ---
 dBx_dz_full = np.gradient(noisy_B[:, 0] * 1e6, true_positions[:, 2] * 1000)  # µT/mm
-plt.figure(figsize=(12, 6))
-plt.plot(t, dBx_dz_full, 'm-')
-plt.xlabel('Time (s)')
-plt.ylabel('∂Bx/∂z (µT/mm)')
-plt.title('Numerical Derivative ∂Bx/∂z Over Time')
-plt.grid()
-plt.show()
+
+# --- Save data to JSON ---
+data = {
+    't': t.tolist(),
+    'true_positions': true_positions.tolist(),
+    'noisy_B': noisy_B.tolist(),
+    'estimated_positions': estimated_positions.tolist(),
+    'field_magnitude': field_magnitude.tolist(),
+    'dBx_dz_full': dBx_dz_full.tolist()
+}
+with open('simulation_data.json', 'w') as f:
+    json.dump(data, f)
+
+# --- Visualize Results ---
