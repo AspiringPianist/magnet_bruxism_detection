@@ -28,13 +28,19 @@ This project develops an innovative approach to detect and monitor bruxism using
 
 ## 📊 Demo & Visualization
 
-### Live Simulation Demo
- ThreeJS Simulation Visualization - https://youtu.be/dB5wdd2wcMA
- Splint Prototype - https://youtu.be/MBz_szsM2Cs?si=wlJ8ah46i7i2r_9H
- ![Recording 2025-09-11 111226](https://github.com/user-attachments/assets/2c2b960e-e190-4a4a-abae-6c1fed022e0d)
+### Current Progress
+ ThreeJS Simulation Visualization - https://youtu.be/dB5wdd2wcMA 
+ Magnet Selection (QMC5883L selected) - https://youtu.be/MBz_szsM2Cs?si=wlJ8ah46i7i2r_9H 
+ [LATEST] Motion Tracking implemented with Magnets - https://youtu.be/V6BacVfzCZE  
 
+ We are able to clearly see the grinding movements in a relative scale of measurement. The current project serves as good input for anyone 
+ wanting to train bruxism detection models or jaw tracking approaches when combined with Kalman Filters. This has been developed with the aim of 
+ detection for sleep bruxism. However, we are looking to expand this for localized force sensing per teeth/region. 
+ 
+ Based on feedback received, we will keep updating this section. 
+ 
 ### Magnetic Field Analysis
-The system distinguishes between different jaw activities:
+The system distinguishes between different jaw activities (some basic stats) :
 
 #### Rest Period (0-5s): Normal jaw position
 - Lateral movement: ±2mm
@@ -42,7 +48,7 @@ The system distinguishes between different jaw activities:
 - Magnetic field: Stable baseline
 
 #### Grinding Period (5-10s): Lateral teeth grinding
-- Lateral movement: ±5mm at 1.5Hz
+- Lateral movement: ±5mm at 12Hz
 - Vertical distance: 8-10mm  
 - Magnetic field: High frequency variations
 
@@ -131,19 +137,19 @@ npm start
 ## 🔮 Future Enhancements
 
 ### Phase 1: Sensor Integration
-- [ ] Physical HMC5883L integration
-- [ ] IMU sensor fusion implementation
-- [ ] Arduino-based data acquisition
-- [ ] Wireless data transmission
+- [done] Physical HMC5883L integration
+- [in works] IMU sensor fusion implementation
+- [done] Arduino-based data acquisition
+- [in works] Wireless data transmission
 
 ### Phase 2: Advanced Processing
-- [ ] Extended Kalman Filter deployment
+- [in works] Extended Kalman Filter deployment
 - [ ] Machine learning model training
 - [ ] Real-time classification algorithm
 - [ ] Mobile app development
 
 ### Phase 3: Clinical Validation
-- [ ] Force sensor integration
+- [in works] Force sensor integration
 - [ ] Clinical trial preparation
 - [ ] Long-term monitoring capabilities
 - [ ] Medical device certification pathway
@@ -159,12 +165,9 @@ npm start
 
 This is an active research project. Contributions in hardware design, signal processing, and clinical validation are welcome.
 
-## 📄 License
-
-Research project - Academic use permitted. Commercial applications require permission.
-
 ---
 *Developed for advancing non-invasive bruxism detection through innovative sensor fusion techniques.*
+
 
 
 
