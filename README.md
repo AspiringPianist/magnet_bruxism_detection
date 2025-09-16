@@ -28,16 +28,26 @@ This project develops an innovative approach to detect and monitor bruxism using
 
 ## 📊 Demo & Visualization
 
-### Current Progress
- ThreeJS Simulation Visualization - https://youtu.be/dB5wdd2wcMA 
- Magnet Selection (QMC5883L selected) - https://youtu.be/MBz_szsM2Cs?si=wlJ8ah46i7i2r_9H 
- [LATEST] Motion Tracking implemented with Magnets - https://youtu.be/V6BacVfzCZE  
+### 📌 Current Progress  
 
- We are able to clearly see the grinding movements in a relative scale of measurement. The current project serves as good input for anyone 
- wanting to train bruxism detection models or jaw tracking approaches when combined with Kalman Filters. This has been developed with the aim of 
- detection for sleep bruxism. However, we are looking to expand this for localized force sensing per teeth/region. 
- 
- Based on feedback received, we will keep updating this section. 
+- 🎥 **ThreeJS Simulation Visualization**  
+  [Watch here](https://youtu.be/dB5wdd2wcMA)
+
+- 🧲 **Magnet Selection (QMC5883L Selected)**  
+  [Watch here](https://youtu.be/MBz_szsM2Cs?si=wlJ8ah46i7i2r_9H)
+
+- 🆕 **[LATEST] Motion Tracking with Magnets**  
+  [Watch here](https://youtu.be/V6BacVfzCZE)
+
+---
+
+We are now able to **clearly visualize grinding movements** on a relative measurement scale.  
+This project can serve as a **strong foundation** for:  
+- Training **bruxism detection models**  
+- Developing **jaw tracking approaches** (e.g., with Kalman Filters)
+
+The initial focus is on **sleep bruxism detection**, but we aim to expand this toward **localized force sensing per tooth or region** for more detailed analysis.
+Based on feedback received, we will keep updating this section. 
  
 ### Magnetic Field Analysis
 The system distinguishes between different jaw activities (some basic stats) :
@@ -62,6 +72,7 @@ The system distinguishes between different jaw activities (some basic stats) :
 ![Magnetic Field during Grinding](magnetic_field_grinding.png)
 
 ## 🔬 Technical Implementation
+![WhatsApp Image 2025-09-16 at 10 11 31_c7ee6dae](https://github.com/user-attachments/assets/dee6983e-0bc1-4b43-8634-7d6704d89ea1)
 
 ### Magnetic Field Simulation
 ```python
@@ -167,6 +178,7 @@ This is an active research project. Contributions in hardware design, signal pro
 
 ---
 *Developed for advancing non-invasive bruxism detection through innovative sensor fusion techniques.*
+
 
 
 
